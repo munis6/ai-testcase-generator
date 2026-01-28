@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { generateTestCases } from "./ai/testGenerator";
+import { generateTestCases } from "./ai/testGenerator.js";
 
 const app = express();
 
