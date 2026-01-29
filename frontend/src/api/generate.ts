@@ -4,16 +4,23 @@
 // This file then sends the text to the backend server to generate test cases,
 // and returns the backend’s reply back to App.tsx.
 // It works as a small helper that connects the frontend UI to the backend API.
-
 export async function generateTestCases(requirement: string) {
-  const backendCall = await fetch("http://localhost:3000/generate", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ requirement })
-  });
+  console.log("Calling backend with:", requirement);
 
-  return backendCall.json();
+  try {
+    const backendCall = await fetch(process.env.REACT_APP_API_URL as string, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ requirement })
+    });
+
+    return backendCall.json();
+  } catch (error) {
+    console.error("FETCH ERROR:", error);
+    throw error;
+  }
 }
+
 
